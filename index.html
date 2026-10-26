@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ДАРЫН — мир одного имени</title>
+<style>
+:root{--ink:#1b2a41;--sky:#0f2547;--sky2:#1d4e89;--snow:#f4f8fb;--orange:#ff8a1f;--teal:#2ec4b6;--pink:#ff5d8f;--sun:#ffd23f;--card:#fff8e7;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#1b2a41;--sky:#0f2547}}
+*{box-sizing:border-box}html{height:100%;scroll-padding-top:70px}
+body{margin:0;min-height:100%;background:var(--sky);color:var(--snow);font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif;font-size:17px;line-height:1.5;overflow-x:hidden}
+h1,h2,h3{font-family:"Arial Black",Impact,"Segoe UI Black",sans-serif;margin:0;line-height:1.05}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--ink);border-bottom:4px solid var(--orange);display:flex;gap:6px;align-items:center;padding:8px 12px;overflow-x:auto}
+nav b{font-family:"Arial Black",sans-serif;color:var(--sun);margin-right:8px;cursor:pointer;white-space:nowrap}
+button,.btn{font:inherit;font-weight:700;cursor:pointer;border:3px solid var(--ink);background:var(--sun);color:var(--ink);padding:8px 14px;border-radius:10px;box-shadow:3px 3px 0 var(--ink);transition:transform .08s}
+button:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+button:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+nav button{white-space:nowrap;background:var(--snow);padding:6px 10px;font-size:15px}
+.hero{position:relative;text-align:center;padding-top:20px}
+.hero svg{width:100%;height:auto;display:block;border:4px solid var(--ink);border-radius:14px;background:#0a1a36}
+.title{font-size:clamp(54px,15vw,140px);color:var(--sun);text-shadow:5px 5px 0 var(--ink),-2px -2px 0 var(--ink),2px -2px 0 var(--ink),-2px 2px 0 var(--ink);letter-spacing:2px;margin:18px 0 4px;transform:rotate(-2deg)}
+.sub{font-size:19px;max-width:640px;margin:0 auto 10px}
+section{padding:46px 0 10px}
+h2{font-size:clamp(28px,6vw,44px);color:var(--sun);text-shadow:3px 3px 0 var(--ink);margin-bottom:14px}
+.card{background:var(--card);color:var(--ink);border:4px solid var(--ink);border-radius:6px 18px 8px 16px;padding:16px;box-shadow:6px 6px 0 var(--ink)}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.card h3{font-size:20px;margin-bottom:6px}
+.letters{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:12px 0}
+.letters button{font-family:"Arial Black",sans-serif;font-size:44px;width:76px;height:88px;padding:0;background:var(--orange)}
+.letters button:nth-child(2n){background:var(--teal)}.letters button:nth-child(3){background:var(--pink)}
+.arena{position:relative;height:300px;background:#bfe3f5;border:4px solid var(--ink);border-radius:14px;overflow:hidden;touch-action:manipulation}
+.arena:after{content:"";position:absolute;left:0;right:0;bottom:0;height:40px;background:var(--snow);border-top:4px solid var(--ink)}
+.gift{position:absolute;font-size:38px;border:0;background:none;box-shadow:none;padding:0;z-index:2;animation:pop .2s}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+#mz{display:grid;grid-template-columns:repeat(13,1fr);max-width:520px;background:#f4f8fb;border:4px solid var(--ink);border-radius:6px;margin:8px 0}
+#mz:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.mc{aspect-ratio:1;border-style:solid;border-color:#1b2a41;display:grid;place-items:center;font-size:clamp(14px,3.4vw,24px)}
+.pl{width:72%;height:72%;border-radius:50%;background:var(--orange);border:2px solid #1b2a41;color:#1b2a41;display:grid;place-items:center;font:900 .6em "Arial Black",sans-serif}
+.keys{display:flex;flex-wrap:wrap;gap:5px}.keys button{width:36px;height:38px;padding:0;font-size:16px;background:var(--snow);box-shadow:2px 2px 0 var(--ink)}.keys button:disabled{opacity:.3;cursor:default}
+.chat{background:#fff;border:3px solid var(--ink);border-radius:10px;padding:8px 10px;min-height:150px;max-height:260px;overflow:auto}
+.msg{margin:6px 0;padding:8px 12px;border-radius:12px;background:#d9ecff;max-width:88%}.msg.me{background:#ffe0b8;margin-left:auto}
+.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.pill{background:var(--ink);color:var(--snow);padding:4px 12px;border-radius:20px;font-weight:700}
+.tiles{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0;min-height:60px}
+.tiles button{font-family:"Arial Black",sans-serif;font-size:26px;width:54px;height:60px;padding:0;background:var(--snow)}
+.tiles button.used{opacity:.25}
+.slot{width:54px;height:60px;border:3px dashed var(--ink);border-radius:10px;display:grid;place-items:center;font:900 26px "Arial Black",sans-serif;background:#fff}
+.mem{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:480px}
+.mem button{height:70px;font-size:14px;line-height:1.1;padding:0;background:var(--sky2);color:var(--sky2)}
+.mem button.on{background:var(--snow);color:inherit}
+.mem button.ok{background:var(--teal)}
+.opts{display:grid;gap:8px;margin-top:8px}.opts button{text-align:left;background:var(--snow)}
+input{font:inherit;padding:8px 12px;border:3px solid var(--ink);border-radius:10px;min-width:0;flex:1}
+.big{font-size:44px;font-family:"Arial Black",sans-serif;color:var(--orange)}
+footer{text-align:center;padding:40px 16px 60px;opacity:.85}
+.conf{position:fixed;top:-40px;font-size:30px;z-index:50;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+body.party{background:linear-gradient(#3b1d6e,#0f2547)}
+.cloud{animation:drift 40s linear infinite}@keyframes drift{from{transform:translateX(-120px)}to{transform:translateX(900px)}}
+.twk{animation:tw 2s infinite alternate}@keyframes tw{from{opacity:.3}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<nav id="nav"><b id="logo">ДАРЫН</b>
+<button data-go="meaning">Имя</button><button data-go="letters">Буквы</button><button data-go="games">Игры</button><button data-go="lab">Айфон</button><button id="snd">Звук: выкл</button></nav>
+
+<div class="wrap">
+<div class="hero">
+<svg viewBox="0 0 800 300" role="img" aria-label="Степь ночью, юрта и горы">
+<rect width="800" height="300" fill="#0a1a36"/>
+<g fill="#fff"><circle class="twk" cx="80" cy="40" r="3"/><circle class="twk" cx="220" cy="70" r="2"/><circle class="twk" cx="420" cy="30" r="3"/><circle class="twk" cx="560" cy="80" r="2"/><circle class="twk" cx="700" cy="45" r="3"/><circle class="twk" cx="330" cy="100" r="2"/></g>
+<circle cx="640" cy="80" r="38" fill="#ffd23f" stroke="#1b2a41" stroke-width="4"/><circle cx="628" cy="72" r="38" fill="#0a1a36"/>
+<g class="cloud" fill="#2a4a7c" stroke="#1b2a41" stroke-width="3"><ellipse cx="100" cy="60" rx="50" ry="16"/><ellipse cx="130" cy="50" rx="30" ry="14"/></g>
+<path d="M0 220 L120 110 L200 190 L330 80 L460 200 L560 120 L700 210 L800 140 V300 H0Z" fill="#1d4e89" stroke="#1b2a41" stroke-width="4"/>
+<path d="M330 80 L300 115 L325 108 L335 125 L350 105 L368 112Z" fill="#f4f8fb" stroke="#1b2a41" stroke-width="3"/>
+<path d="M0 240 Q200 215 400 240 T800 235 V300 H0Z" fill="#f4f8fb" stroke="#1b2a41" stroke-width="4"/>
+<g id="yurt" style="cursor:pointer" stroke="#1b2a41" stroke-width="4">
+<rect x="330" y="205" width="140" height="55" fill="#fff8e7"/><path d="M322 207 Q400 120 478 207Z" fill="#ff8a1f"/><circle cx="400" cy="150" r="8" fill="#1b2a41"/>
+<path d="M375 260 V225 Q400 205 425 225 V260Z" fill="#1d4e89"/>
+<path d="M340 222 l12 12 l12 -12 l12 12 M436 222 l12 12 l12 -12" fill="none" stroke="#2ec4b6"/></g>
+<g fill="#ffd23f" opacity=".8"><rect x="388" y="232" width="24" height="26"/></g>
+<path d="M430 120 q8-14 0-28 q-8-14 0-28" stroke="#cfe3f7" stroke-width="6" fill="none" stroke-linecap="round" class="twk"/>
+</svg>
+<h1 class="title">ДАРЫН</h1>
+<p class="sub">Имя, которое переводится как «дар». Здесь про него всё: смысл, буквы, цифры и игры. Нажми на юрту — вдруг она ответит.</p>
+</div>
+
+<section id="meaning"><h2>Что значит имя</h2>
+<div class="grid">
+<div class="card"><h3>Смысл</h3>Казахское имя. Слово «дарын» означает дар, талант, природную одарённость. То есть имя буквально говорит: человек пришёл с подарком.</div>
+<div class="card"><h3>Как звучит</h3>На латинице Daryn. Ласково: Дара, Дарик, Дарынчик. Три слога звучат ровно и коротко, как удар в бубен.</div>
+<div class="card"><h3>Образ</h3>Степь, где ничего не мешает видеть далеко. Юрта с открытым верхом. Горы, до которых идти день, а дойти можно.</div>
+<div class="card"><h3>Девиз</h3>Талант — это не награда. Это задание: раскрыть то, что тебе уже вручили.</div>
+</div></section>
+
+<section id="letters"><h2>Имя по буквам</h2>
+<p>Нажимай на буквы.</p>
+<div class="letters" id="lt"></div>
+<div class="card" id="ltx" style="min-height:90px">Выбери букву, и она расскажет о себе.</div>
+</section>
+
+<section id="games"><h2>Мини-игры</h2>
+
+<div class="card"><h3>1. Собери имя ДАРЫН</h3>
+<p style="margin:0 0 8px">20 секунд. Лови буквы своего имени по порядку: Д, А, Р, Ы, Н. Каждая верная буква даёт +1, собранное имя даёт бонус +10, лишняя буква отнимает очко.</p>
+<div class="bar"><button id="gs">Старт</button><span class="pill">Время: <span id="gt">20</span></span><span class="pill">Очки: <span id="gp">0</span></span><span class="pill" id="gn" style="letter-spacing:3px">_____</span><span class="pill">Рекорд: <span id="gb">0</span></span></div>
+<div class="arena" id="ar"></div></div>
+<br>
+<div class="card"><h3>2. Лабиринт: из Сатпаева к поезду</h3>
+<p style="margin:0 0 8px">Дарын (оранжевый кружок) выходит из Сатпаева и должен дойти до поезда. Двигайся стрелками, клавишами WASD или кнопками.</p>
+<div class="bar"><span class="pill">Шагов: <span id="ms">0</span></span><button id="mn">Новый лабиринт</button></div>
+<div id="mz" tabindex="0" aria-label="Лабиринт"></div>
+<div class="bar"><button data-m="3">Влево</button><button data-m="0">Вверх</button><button data-m="2">Вниз</button><button data-m="1">Вправо</button></div>
+<p id="lw" style="margin:4px 0 0;font-weight:700"></p></div>
+<br>
+<div class="card"><h3>3. Буква и её слово</h3><p style="margin:0">Найди пару: буква имени и слово, которое она значит.</p>
+<div class="bar"><span class="pill">Ходы: <span id="mv">0</span></span><button id="mr">Заново</button></div>
+<div class="mem" id="mm"></div><p id="mw" style="margin:8px 0 0;font-weight:700"></p></div>
+<br>
+<div class="card"><h3>4. Виселица: спаси Баху</h3>
+<p style="margin:0 0 8px">Прочитай вопрос и угадай слово по буквам. Каждая ошибка дорисовывает стикмена Баху. Шесть ошибок, и он нарисован целиком.</p>
+<div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+<svg viewBox="0 0 160 190" width="160" height="190" role="img" aria-label="Стикмен Баха на виселице" fill="none" stroke="#1b2a41" stroke-width="4" stroke-linecap="round">
+<path d="M20 180H100M40 180V20H110V38"/>
+<circle id="hp0" cx="110" cy="52" r="13" style="display:none"/><path id="hp1" d="M110 65V115" style="display:none"/><path id="hp2" d="M110 77L90 102" style="display:none"/><path id="hp3" d="M110 77L130 102" style="display:none"/><path id="hp4" d="M110 115L92 150" style="display:none"/><path id="hp5" d="M110 115L128 150" style="display:none"/>
+<text x="110" y="176" text-anchor="middle" fill="#1b2a41" stroke="none" font-family="Arial Black,sans-serif" font-size="16">Баха</text></svg>
+<div style="flex:1;min-width:230px"><p id="hq" style="margin:0 0 8px;font-weight:700"></p><div id="hwd" class="big" style="font-size:30px;letter-spacing:5px;word-break:break-all">_</div>
+<p id="hh" style="margin:4px 0 8px;font-weight:700"></p><div class="keys" id="hk"></div></div></div>
+<div class="bar"><button id="hn">Новое слово</button><span class="pill" id="hl">Ошибки: 0/6</span></div></div>
+</section>
+
+<section id="lab"><h2>Продай айфон</h2>
+<div class="card"><h3>Самая сложная игра сайта</h3>
+<p style="margin:0 0 8px">У Дарына есть айфон и четыре дня. Нужно продать его не дешевле 450 000 ₸. Покупатели торгуются и уходят, когда устают, а мошенники предлагают слишком выгодную цену. Решай, когда соглашаться.</p>
+<div class="bar"><span class="pill">День: <span id="sd">0</span>/4</span><span class="pill">Цена: 450 000 ₸</span></div>
+<div class="chat" id="ch" aria-live="polite"></div>
+<div class="bar" id="ia"></div></div></section>
+</div>
+<footer>Сайт одного имени. Подсказка: набери «дарын» на клавиатуре, когда на странице ничего не выбрано.</footer>
+
+<script>
+(function(){
+var $=function(s){return document.querySelector(s)};
+function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+var snd=false,AC=null;
+function beep(f,d){if(!snd)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();var o=AC.createOscillator(),g=AC.createGain();o.frequency.value=f;o.type="square";g.gain.value=.05;o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+(d||.08))}catch(e){}}
+$("#snd").onclick=function(){snd=!snd;this.textContent="Звук: "+(snd?"вкл":"выкл");beep(660)};
+document.querySelectorAll("[data-go]").forEach(function(b){b.onclick=function(){beep(440);document.getElementById(b.dataset.go).scrollIntoView({behavior:"smooth"})}});
+function confetti(n){var e=["🎁","⭐","🎵","🎨","🐎","✨"];for(var i=0;i<(n||30);i++){var s=document.createElement("span");s.className="conf";s.textContent=e[i%e.length];s.style.left=Math.random()*100+"vw";s.style.animationDuration=(2+Math.random()*2)+"s";s.style.animationDelay=Math.random()+"s";document.body.appendChild(s);setTimeout(function(x){x.remove()},5000,s)}}
+/* easter eggs */
+var yc=0,lc=0;
+var yl=["Юрта молчит.","Юрта скрипнула.","Внутри кто-то играет на домбре.","Ещё раз, и она раскроет секрет.","Секрет: талант любит повторение. Держи салют!"];
+$("#yurt").onclick=function(){beep(300+yc*80);var m=yl[Math.min(yc,4)];yc++;if(yc>=5){confetti(40);yc=0}$(".sub").textContent=m};
+$("#logo").onclick=function(){lc++;if(lc>=5){lc=0;document.body.classList.toggle("party");confetti(24);beep(880,.2)}};
+var typed="";document.addEventListener("keydown",function(e){if(e.target.tagName==="INPUT")return;typed=(typed+e.key.toLowerCase()).slice(-5);if(typed==="дарын"||typed==="daryn"){document.body.classList.add("party");confetti(60);beep(990,.3);typed=""}});
+/* letters */
+var L=[["Д","Дар","Дар — это то, что уже внутри тебя. Остаётся не прятать."],["А","Аргын","Аргын — один из казахских родов. Знать свои корни и нести их с гордостью."],["Р","Россия патриоты","Любовь к родине и уважение к своей земле. Патриот заботится о городе и людях рядом."],["Ы","Ысты","Ысты — тепло. Кто делает дело с душой, тот согревает всех вокруг."],["Н","Help","Help — помощь. Настоящий талант тот, который помогает другим."]];
+L.forEach(function(x,i){var b=document.createElement("button");b.textContent=x[0];b.setAttribute("aria-label",x[1]);b.onclick=function(){beep(300+i*110);$("#ltx").innerHTML="<h3>"+x[0]+" — "+x[1]+"</h3>"+x[2]};$("#lt").appendChild(b)});
+/* catch game */
+var run=false,sc=0,tm=20,ti,sp,best=+store("daryn-best")||0;$("#gb").textContent=best;
+var NM="ДАРЫН",nx=0,DE="КМТБСЛВЕОИЗЖ";
+function pr(){$("#gn").textContent=(NM.slice(0,nx)+"_____").slice(0,5)}
+function spawn(){var ar=$("#ar"),c=Math.random()<.5?NM[nx]:(Math.random()<.3?NM[Math.floor(Math.random()*5)]:DE[Math.floor(Math.random()*DE.length)]);var b=document.createElement("button");b.className="gift";b.textContent=c;b.setAttribute("aria-label","буква "+c);b.style.cssText+=";font-family:Arial Black,sans-serif;color:#1b2a41;background:#ffd23f;border:3px solid #1b2a41;border-radius:12px;width:52px;height:52px;font-size:26px";b.style.left=Math.random()*(ar.clientWidth-60)+"px";b.style.top=Math.random()*(ar.clientHeight-110)+"px";b.onclick=function(){if(!run)return;if(c===NM[nx]){sc++;nx++;beep(700);if(nx===5){sc+=10;nx=0;confetti(14);beep(950,.2)}}else{sc=Math.max(0,sc-1);beep(150)}$("#gp").textContent=sc;pr();b.remove()};ar.appendChild(b);setTimeout(function(){b.remove()},1300)}
+$("#gs").onclick=function(){if(run)return;run=true;sc=0;nx=0;pr();tm=20;$("#gp").textContent=0;$("#gt").textContent=20;$("#ar").innerHTML="";sp=setInterval(spawn,450);ti=setInterval(function(){tm--;$("#gt").textContent=tm;if(tm<=0){clearInterval(ti);clearInterval(sp);run=false;$("#ar").innerHTML="";if(sc>best){best=sc;store("daryn-best",best);$("#gb").textContent=best;confetti(30)}$("#ar").innerHTML='<div style="padding:20px;font:900 28px Arial Black,sans-serif;color:#1b2a41">Итог: '+sc+'</div>'}},1000)};
+/* maze */
+var MC=13,MR=9,mz,px,py,ms,mdone,DV=[[0,-1],[1,0],[0,1],[-1,0]];
+function maze(){mz=[];for(var y=0;y<MR;y++){mz[y]=[];for(var x=0;x<MC;x++)mz[y][x]={w:[1,1,1,1],v:0}}var st=[[0,0]];mz[0][0].v=1;while(st.length){var c=st[st.length-1],o=[];for(var d=0;d<4;d++){var ax=c[0]+DV[d][0],ay=c[1]+DV[d][1];if(ax>=0&&ay>=0&&ax<MC&&ay<MR&&!mz[ay][ax].v)o.push(d)}if(!o.length){st.pop();continue}var k=o[Math.floor(Math.random()*o.length)],bx=c[0]+DV[k][0],by=c[1]+DV[k][1];mz[c[1]][c[0]].w[k]=0;mz[by][bx].w[(k+2)%4]=0;mz[by][bx].v=1;st.push([bx,by])}px=0;py=0;ms=0;mdone=false;$("#lw").textContent="";mdraw()}
+function mdraw(){var h="";for(var y=0;y<MR;y++)for(var x=0;x<MC;x++){var s="border-width:"+mz[y][x].w.map(function(v){return v?"2px":"0"}).join(" ")+";";h+='<div class="mc" style="'+s+(x===0&&y===0?"background:#ffe0b8;":"")+'">'+(x===px&&y===py?'<span class="pl">Д</span>':(x===MC-1&&y===MR-1?"🚂":""))+"</div>"}$("#mz").innerHTML=h;$("#ms").textContent=ms}
+function mmove(d){if(mdone||mz[py][px].w[d])return;px+=DV[d][0];py+=DV[d][1];ms++;beep(420);mdraw();if(px===MC-1&&py===MR-1){mdone=true;$("#lw").textContent="Дарын добрался до поезда за "+ms+" шагов. Сатпаев остался позади!";confetti(30);beep(900,.25)}}
+$("#mz").onkeydown=function(e){var m={ArrowUp:0,ArrowRight:1,ArrowDown:2,ArrowLeft:3,w:0,d:1,s:2,a:3}[e.key];if(m!==undefined){e.preventDefault();mmove(m)}};
+document.querySelectorAll("[data-m]").forEach(function(b){b.onclick=function(){mmove(+b.dataset.m)}});
+$("#mn").onclick=maze;maze();
+/* memory */
+var first=null,lock=false,mv=0,found=0;
+function mem(){var P={"Д":"Дар","Дар":"Д","А":"Аргын","Аргын":"А","Р":"Россия патриоты","Россия патриоты":"Р","Ы":"Ысты","Ысты":"Ы","Н":"Help","Help":"Н"};var a=Object.keys(P).sort(function(){return Math.random()-.5});mv=0;found=0;first=null;lock=false;$("#mv").textContent=0;$("#mw").textContent="";$("#mm").innerHTML="";a.forEach(function(v){var b=document.createElement("button");b.textContent=v;b.setAttribute("aria-label","карточка");b.onclick=function(){if(lock||b.classList.contains("on")||b.classList.contains("ok"))return;b.classList.add("on");beep(500);if(!first){first=b;return}mv++;$("#mv").textContent=mv;if(P[first.textContent]===v){first.classList.replace("on","ok");b.classList.replace("on","ok");found++;first=null;if(found===5){$("#mw").textContent="Имя собрано: Д-А-Р-Ы-Н! Ходов: "+mv;confetti(24)}}else{lock=true;var f=first;first=null;setTimeout(function(){f.classList.remove("on");b.classList.remove("on");lock=false},700)}};$("#mm").appendChild(b)})}
+$("#mr").onclick=mem;mem();
+/* hangman */
+var HQ={"ДАРЫН":"Как зовут героя этого сайта?","ТАЛАНТ":"Природная одарённость. Именно её называют даром в имени Дарын.","ДОМБРА":"Казахский народный струнный инструмент с двумя струнами.","СТЕПЬ":"Бескрайняя равнина без деревьев, знакомая каждому казаху пейзаж.","ЮРТА":"Круглое переносное жилище кочевников с куполом.","САТПАЕВ":"Город в Казахстане, из которого Дарын выбирается в лабиринте.","ПОЕЗД":"На чём Дарын уезжает после лабиринта?","ВОКЗАЛ":"Здание, куда приходят, чтобы сесть на поезд.","РЕЛЬСЫ":"По чему катится поезд? (множественное число)","АРГЫН":"Один из казахских родов. С него начинается вторая буква имени на этом сайте.","МУЗЫКА":"Искусство звуков, один из самых частых талантов.","ПОДАРОК":"Вещь, которую дарят на праздник. По смыслу близко к слову «дар»."},HW=Object.keys(HQ),hw,hg,hm,hd;
+function hang(){hw=HW[Math.floor(Math.random()*HW.length)];$("#hq").textContent="Вопрос: "+HQ[hw];hg={};hm=0;hd=false;for(var i=0;i<6;i++)$("#hp"+i).style.display="none";$("#hk").innerHTML="";"АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ".split("").forEach(function(c){var b=document.createElement("button");b.textContent=c;b.onclick=function(){if(hd)return;b.disabled=true;hg[c]=1;if(hw.indexOf(c)<0){$("#hp"+hm).style.display="";hm++;beep(150)}else beep(650);hshow()};$("#hk").appendChild(b)});hshow()}
+function hshow(){var won=hw.split("").every(function(c){return hg[c]});$("#hwd").textContent=hw.split("").map(function(c){return hg[c]||hm>=6?c:"_"}).join(" ");$("#hl").textContent="Ошибки: "+hm+"/6";if(won&&!hd){hd=true;$("#hh").textContent="Баха спасён! Слово угадано.";confetti(24);beep(900,.2)}else if(hm>=6&&!hd){hd=true;$("#hh").textContent="Баха нарисован целиком. Попробуй ещё раз.";beep(120,.3)}else if(!hd)$("#hh").textContent=""}
+$("#hn").onclick=hang;hang();
+/* sell iphone */
+var NMS=["Нурлан","Айгерим","Бекзат","Мадина","Ерлан","Динара","Темирлан","Асель"],GOAL=450000,day,by;
+function fm(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g," ")+" ₸"}
+function r1(n){return Math.round(n/1000)*1000}
+function say(t,me){var d=document.createElement("div");d.className="msg"+(me?" me":"");d.textContent=t;$("#ch").appendChild(d);$("#ch").scrollTop=1e5}
+function acts(l){var a=$("#ia");a.innerHTML="";l.forEach(function(x){var b=document.createElement("button");b.textContent=x[0];b.onclick=function(){beep(500);x[1]()};a.appendChild(b)})}
+function sstart(){day=0;$("#ch").innerHTML="";say("Айфон выложен на продажу. Цель: не дешевле "+fm(GOAL)+" за 4 дня. Остерегайся мошенников.");nextBuyer()}
+function fin(m,win){say(m);if(win){confetti(40);beep(900,.3)}acts([["Играть заново",sstart]])}
+function nextBuyer(){day++;if(day>4){fin("Четыре дня прошли. Айфон остался у Дарына: не продал, но и не продешевил.");return}$("#sd").textContent=day;var sc=Math.random()<.3,B=r1(220000+Math.random()*280000);by={n:NMS[Math.floor(Math.random()*NMS.length)],B:B,sc:sc,p:3+Math.floor(Math.random()*2),chk:false,O:sc?430000+Math.floor(Math.random()*40)*1000:r1(B*(.5+Math.random()*.15))};say("День "+day+". Пишет "+by.n+": "+(sc?"Беру сразу за "+fm(by.O)+"! Перевод сделаю позже, вот скриншот.":"Здравствуйте. Дам "+fm(by.O)+" и заберу сегодня."));menu()}
+function menu(){acts([["Держаться цены",hold],["Показать чек и коробку",chk],["Проверить перевод",test],["Согласиться на "+fm(by.O),agree],["Отказать и ждать другого",function(){say("Не подходит, ждём другого.",1);nextBuyer()}]])}
+function hold(){say("Моя цена остаётся прежней.",1);by.p--;if(by.p<=0){say(by.n+": Мне надоело торговаться. Пока.");nextBuyer();return}if(by.sc)say(by.n+": Давайте быстрее, я уже всё перевёл!");else{by.O=Math.min(by.B,by.O+r1((by.B-by.O)*(.4+Math.random()*.2)));say(by.n+": Хорошо, поднимаю до "+fm(by.O)+".")}menu()}
+function chk(){if(by.chk){say("Чек уже показан.",1);menu();return}by.chk=true;say("Показываю чек, коробку и гарантию.",1);if(by.sc)say(by.n+": Да-да, отлично. Так что с переводом?");else{by.B=r1(by.B*1.08);by.O=Math.min(by.B,by.O+r1(by.B*.03));say(by.n+": Выглядит надёжно. Дам "+fm(by.O)+".")}menu()}
+function test(){say("Покажи перевод в банковском приложении.",1);if(by.sc){say("Перевода нет. "+by.n+" оказался мошенником и исчез. Хорошо, что проверил.");nextBuyer();return}by.p--;say(by.n+": Вот приложение, всё настоящее. Но вы мне не доверяете...");if(by.p<=0){say(by.n+" обиделся и ушёл.");nextBuyer();return}menu()}
+function agree(){say("Договорились.",1);if(by.sc){fin("Перевод оказался фейком, мошенник унёс айфон. Игра окончена.");return}if(by.O>=GOAL)fin("Продано за "+fm(by.O)+". Цель достигнута, Дарын победил!",1);else fin("Продано за "+fm(by.O)+". Это ниже цели в "+fm(GOAL)+": айфон ушёл дешевле, чем хотелось.")}
+sstart();
+})();
+</script>
+</body>
+</html>
